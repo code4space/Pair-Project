@@ -10,13 +10,13 @@ class Controller {
   }
 
   static showAllService(req, res) {
-    let usernameLoggedIn = req.session.username
-    Service.findAll()
-      .then(dataAllService => {
-        res.render('service-list', { dataAllService, usernameLoggedIn })
-      }).catch(err => {
-        res.send(err)
-      })
+    // let usernameLoggedIn = req.session.username
+    // Service.findAll()
+    //   .then(dataAllService => {
+    //     res.render('service-list', { dataAllService, usernameLoggedIn })
+    //   }).catch(err => {
+    //     res.send(err)
+    //   })
   }
 
   static showLogin(req, res) {
@@ -39,7 +39,16 @@ class Controller {
           if (isvalidPassword) {
             req.session.username = user.username
             req.session.role = user.role
-            return res.redirect('/services')
+            console.log(user.role === "seller")
+            if (user.role === "buyer") {
+              console.log('masuk buyer')
+              return res.redirect(`/services/buyer/${req.session.username}`)
+            }
+            if (user.role === "seller") {
+              console.log('masuk seller')
+              return res.redirect(`/services/seller/${req.session.username}`)
+            }
+            // return res.redirect('/services')
           }
           else {
             const errorMessage = `invalid username / password`
@@ -121,11 +130,12 @@ class Controller {
 
 
   static showServicesSellerAddForm(req, res) {
-
+    res.send('masuk')
+    // res.render('service-add-seller')
   }
 
   static addServicesSellerMethod(req, res) {
-
+    res.send('masuk')
   }
 
   static showServicesSellerEditForm(req, res) {
@@ -137,7 +147,7 @@ class Controller {
   }
 
   static deleteSellerServices(req, res) {
-
+    res.send('masuk')
   }
 
 }
