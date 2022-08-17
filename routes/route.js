@@ -46,23 +46,15 @@ routes.get('/services/seller/:username', Controller.showSellerPage)
 // req session utk privilege seller :
 
 routes.use(function (req, res, next) {
-  if (req.session.username && req.session.role !== 'seller') {
-    // const error = 'You have to be a seller'
-    // res.redirect(`/login?err=${error}`)
-    // res redirect ke endpoint buyer
-    // kalo dia buyer, maka redirect ke buyer page
-    res.redirect('/services/buyer/' + req.session.username)
-  }
-  else {
-    // kalo dia seller, maka redirect ke seller page. lanjut aja
-    res.redirect('/services/seller/' + req.session.username)
+  if (req.session.username && req.session.role === 'seller') {
+    next()
+  } 
+  else if (req.session.username && req.session.role === 'buyer') {
     next()
   }
 })
 
-
-
-routes.get('/services', Controller.showAllService)
+// routes.get('/services', Controller.showAllService)
 
 
 // routes.get('/services/:id/delete', Controller.deleteUserMethod)
@@ -75,11 +67,6 @@ routes.post('/services/seller/:username/add', Controller.addServicesSellerMethod
 routes.get('/services/seller/:username/edit', Controller.showServicesSellerEditForm)
 routes.post('/services/seller/:username/edit', Controller.editServicesSellerMethod)
 routes.get('/services/seller/:username/delete', Controller.deleteSellerServices)
-
-// routes.use(function (req, res, next) {
-//   console.log('Time: ', Date.now(), 'Halo, mecahin next utk login/notlogin')
-//   next()
-// })
 
 
 module.exports = routes
