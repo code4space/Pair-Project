@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Page Joki Jasa</title>
+</head>
+<body>
+
+  <h1>Joki Jasa</h1>
+
+  <h3>Klik tombol berikut ke menu terkait</h3>
+
+  <!-- <a href=""><button>templat button url</button></a> -->
+
+    <a href="/services"><button>Ke Halaman Daftar Service</button></a>
+
+    <a href=""><button>Ke Halaman Login</button></a>
+    <a href=""><button>Ke Halaman Register</button></a>
+
+
+    <h2>DAFTAR SERVICE</h2>
+
+    <table border="2">
+
+      <thead>
+        <th>Service Name</th>
+        <th>Description</th>
+        <th>Price</th>
+
+      </thead>
+
+      <tbody>
+        <% dataAllService.forEach(item => { %> 
+        <tr>
+          <td><%= item.nameService %> </td>
+          <td><%= item.description %> </td>
+          <td><%= item.price %> </td>
+        </tr>
+
+        <% }) %> 
+      </tbody>
+
+
+    </table>
+  
+</body>
+</html>
