@@ -1,9 +1,9 @@
 [{
-  "name" : "gaming"
+  "nameCategory" : "gaming"
 },
 {
-  "name" : "editing"
+  "nameCategory" : "editing"
 },
 {
-  "name" : "cooking"
+  "nameCategory" : "cooking"
 }]
