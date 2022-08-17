@@ -7,7 +7,7 @@
     <title>Register</title>
 </head>
 <body>
-    <%- include('./partials/navbar.ejs') %> <br><br>
+    <h1>Register</h1>
 
     <form action="" method="post">
         <label for="">Username</label> <br>
@@ -18,12 +18,14 @@
 
         <label for="">Sebagai: </label><br>
         <input type="radio" name="role" value="seller"> <label for="">seller</label>
-        <input type="radio" name="role" value="buyer"> <label for="">buyer</label><br>
+        <input type="radio" name="role" value="buyer"> <label for="">buyer</label><br><br>
         
-        <label for="">email</label> <br>
+        <label for="">Email</label> <br>
         <input type="email" name="email" id=""><br><br>
 
-        <button type="submit">Submit Register</button>
-    </form>
+        <button type="submit">Sign Up</button> 
+    </form><br><br><br>
+    <label for="">Already Have Account?</label><br>
+    <a href="/login"><button>Log in</button></a>
 </body>
 </html>
