@@ -39,7 +39,7 @@ class Controller {
           if (isvalidPassword) {
             req.session.username = user.username
             req.session.role = user.role
-            return res.redirect('/')
+            return res.redirect('/services')
           }
           else {
             const errorMessage = `invalid username / password`
@@ -64,7 +64,7 @@ class Controller {
     let { username, password, role, email } = req.body
     User.create({ username, password, role, email })
       .then(() => {
-        res.redirect('/')
+        res.redirect('/services')
       })
       .catch(err => res.send(err))
   }
