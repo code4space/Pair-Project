@@ -69,6 +69,16 @@ class Controller {
       .catch(err => res.send(err))
   }
 
+  static logoutMethod(req, res) {
+    req.session.destroy(err => {
+      if (err) {
+        res.send(err)
+      } else {
+        res.redirect('/')
+      }
+    })
+  }
+
 
   // static deleteUserMethod(req, res) {
 
@@ -86,35 +96,47 @@ class Controller {
 
   // }
 
-  static showServicesById(req, res) {
-    let UserId = +req.params.UserId
-    Service.findAll(
-      { where: { UserId: UserId } }
-    )
-      .then(dataAllServiceId => {
-        res.render('service-list-id', { dataAllServiceId })
+  static showBuyerPage(req, res) {
+    let usernameLoggedIn = req.session.username
+    let usernameParams = req.params.username
+    Service.findAll()
+      .then(dataAllService => {
+        res.render('service-list-buyer', { dataAllService, usernameLoggedIn, usernameParams })
       }).catch(err => {
         res.send(err)
       })
   }
 
-  static showServicesAddForm(req, res) {
+  static showSellerPage(req, res) {
+    let usernameLoggedIn = req.session.username
+    let usernameParams = req.params.username
+    Service.findAll()
+      .then(dataAllService => {
+        res.render('service-list-seller', { dataAllService, usernameLoggedIn, usernameParams })
+      }).catch(err => {
+        res.send(err)
+      })
+  }
+
+
+
+  static showServicesSellerAddForm(req, res) {
 
   }
 
-  static addServicesMethod(req, res) {
+  static addServicesSellerMethod(req, res) {
 
   }
 
-  static showServicesEditForm(req, res) {
+  static showServicesSellerEditForm(req, res) {
 
   }
 
-  static editServicesMethod(req, res) {
+  static editServicesSellerMethod(req, res) {
 
   }
 
-  static deleteServices(req, res) {
+  static deleteSellerServices(req, res) {
 
   }
 
