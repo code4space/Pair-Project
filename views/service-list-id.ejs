@@ -4,17 +4,15 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Service Page Joki Jasa</title>
+  <title>Document</title>
 </head>
 <body>
-
   <h1>Joki Jasa</h1>
 
     <%- include('./partials/navbar.ejs') %> 
 
     <h2>DAFTAR SERVICE</h2>
 
-    <a href="/services/add"><button>Add Servive klik button ini</button></a>
     <table border="2">
 
       <thead>
@@ -26,15 +24,14 @@
       </thead>
 
       <tbody>
-        <% dataAllService.forEach(item => { %> 
+        <% dataAllServiceId.forEach(item => { %> 
         <tr>
           <td><%= item.nameService %> </td>
           <td><%= item.description %> </td>
           <td><%= item.price %> </td>
-          <td><%= item.UserId%></td>
           <td>
             <a href=""><button>Edit</button></a>
-            <a href=""><button>Delete</button></a>            
+            <a href=""><button>Delete</button></a>
           </td>
         </tr>
 
@@ -43,6 +40,5 @@
 
 
     </table>
-  
 </body>
 </html>
