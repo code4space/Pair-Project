@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/code4space/Pair-Project/issues"
   },
-  "homepage": "https://github.com/code4space/Pair-Project#readme"
+  "homepage": "https://github.com/code4space/Pair-Project#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "pg": "^8.7.3",
+    "sequelize": "^6.21.3"
+  }
 }
