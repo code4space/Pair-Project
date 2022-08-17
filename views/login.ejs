@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <% if (err) { %>
+        <p style="color: red;"><%= err %>: Password Salah! </p>
+    <% } %> 
+
+    <h1 style="color: rgb(63, 63, 63);">Jasa Joki Online Terbaik</h1>
+    
+    <h1>Login</h1>
+
+    <form action="/login" method="post">
+        <label for="">Username</label> <br>
+        <input type="text" name="username" id=""><br><br>
+        
+        <label for="">Password</label> <br>
+        <input type="text" name="password" id=""><br><br>
+
+        <!-- <label for="">Sebagai: </label><br>
+        <input type="radio" name="role" value="seller"> <label for="">seller</label>
+        <input type="radio" name="role" value="buyer"> <label for="">buyer</label><br><br><br> -->
+
+        <button type="submit" style="width: 190px">Sign in</button><br><br>
+    </form>
+    <a href="/register" style="margin-left: 10px;"><button>didn't have Account yet ?</button></a>
+</body>
+</html>
