@@ -12,6 +12,35 @@ routes.post('/login', Controller.loginMethod)
 routes.get('/register', Controller.showRegister)
 routes.post('/register', Controller.registerMethod)
 
+// req session utk is loggin :
+
+/*
+router.use(function (req, res, next) {
+  if (!req.session.userId) {
+    const error = 'Please Login First'
+    res.redirect(`/login?error=${error}`)
+  } else {
+    next()
+  }
+})
+*/
+
+
+// req session utk privilege seller :
+/*
+router.use(function(req,res,next){
+  if(req.session.userId && req.session.role !== 'seller') {
+    const error = 'You have to be a seller'
+    res.redirect(`/login?error=${error}`)
+  }
+  else {
+    next()
+  }
+})
+
+*/
+
+
 routes.get('/services', Controller.showAllService)
 
 

@@ -4,19 +4,23 @@ const bcrypt = require('bcrypt')
 class Controller {
 
   static showLandingPage(req, res) {
-    res.render('landing-page')
+    // res.send(req.session.username) // prof sayid
+    let username = req.session.username
+    res.render('landing-page', { username })
   }
 
   static showAllService(req, res) {
+    let usernameLoggedIn = req.session.username
     Service.findAll()
       .then(dataAllService => {
-        res.render('service-list', { dataAllService })
+        res.render('service-list', { dataAllService, usernameLoggedIn })
       }).catch(err => {
         res.send(err)
       })
   }
 
   static showLogin(req, res) {
+    req.session.username = null
     let err = req.query.err
     res.render('login', { err })
   }
@@ -33,6 +37,8 @@ class Controller {
           const isvalidPassword = bcrypt.compareSync(password, user.password);
 
           if (isvalidPassword) {
+            req.session.username = user.username
+            req.session.role = user.role
             return res.redirect('/')
           }
           else {
@@ -45,6 +51,9 @@ class Controller {
         }
       })
       .catch(err => res.send(err))
+    // req.session.username = req.body.username // prof sayid
+    // res.redirect('/') // prof sayid
+    // res.send(req.session.username) // prof sayid
   }
 
   static showRegister(req, res) {
