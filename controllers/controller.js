@@ -15,6 +15,13 @@ class Controller {
       })
   }
 
+  static showLogin (req, res) {
+    res.render('login')
+  }
+
+  static showRegister (req, res) {
+    res.render('register')
+  }
 }
 
 module.exports = Controller
