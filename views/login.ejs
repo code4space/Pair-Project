@@ -7,9 +7,12 @@
     <title>Login</title>
 </head>
 <body>
+    <% if (err) { %>
+        <p style="color: red;"><%= err %>: Password Salah! </p>
+    <% } %> 
     <%- include('./partials/navbar.ejs') %> <br><br>
 
-    <form action="" method="post">
+    <form action="/login" method="post">
         <label for="">Username</label> <br>
         <input type="text" name="username" id=""><br><br>
         
