@@ -44,12 +44,17 @@
 <body>
     <h1>Register</h1>
 
+
+  <% if (errors) { %>
+    <p style="color: red;"><%= errors %> </p>
+  <% } %>
+
     <form action="" method="post">
         <label for="">Username</label> <br>
         <input type="text" name="username" id=""><br><br>
         
         <label for="">Password</label> <br>
-        <input type="text" name="password" id=""><br><br>
+        <input type="password" name="password" id=""><br><br>
 
         <label for="">Sebagai: </label><br>
         <input type="radio" name="role" value="seller"> <label for="">seller</label>

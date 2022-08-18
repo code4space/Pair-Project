@@ -19,10 +19,59 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init({
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
-    role: DataTypes.STRING,
-    email: DataTypes.STRING
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        notNull: {
+          msg: "username cannot be null"
+        },
+        notEmpty: {
+          msg: "username cannot be empty"
+        },
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Password cannot be null"
+        },
+        notEmpty: {
+          msg: "Password cannot be empty"
+        },
+        len: {
+          args: [8],
+          msg: "Password must be more than 8"
+        }
+      }
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "role cannot be null"
+        },
+        notEmpty: {
+          msg: "role cannot be empty"
+        },
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "email cannot be null"
+        },
+        notEmpty: {
+          msg: "email cannot be empty"
+        },
+      }
+    },
   }, {
     sequelize,
     modelName: 'User'

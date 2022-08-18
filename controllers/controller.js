@@ -4,13 +4,15 @@ const { Op } = require('sequelize')
 
 class Controller {
 
+
+  //* LANDING PAGE
   static showLandingPage(req, res) {
     // res.send(req.session.username) // prof sayid
     let username = req.session.username
     res.render('landing-page', { username })
   }
 
-
+  //* login
   static showLogin(req, res) {
     req.session.username = null
     let err = req.query.err
@@ -54,8 +56,12 @@ class Controller {
     // res.send(req.session.username) // prof sayid
   }
 
+  //* REGISTER
   static showRegister(req, res) {
-    res.render('register')
+    let errors = ''
+    if (req.query.err) errors = req.query.err.split(',')
+
+    res.render('register', { errors })
   }
 
   static registerMethod(req, res) {
@@ -64,9 +70,17 @@ class Controller {
       .then(() => {
         res.redirect('/services')
       })
-      .catch(err => res.send(err))
+      .catch(err => {
+        if (err.name === 'SequelizeValidationError' || err.name === 'SequelizeUniqueConstraintError') {
+          const errors = err.errors.map(el => el.message)
+          res.redirect(`/register?err=${errors}`)
+        } else {
+          res.send(err)
+        }
+      })
   }
 
+  //* LOGOUT
   static logoutMethod(req, res) {
     req.session.destroy(err => {
       if (err) {
@@ -78,22 +92,7 @@ class Controller {
   }
 
 
-  // static deleteUserMethod(req, res) {
-
-  // }
-
-  // static showUserProfile(req, res) {
-
-  // }
-
-  // static showUserProfileAddForm(req, res) {
-
-  // }
-
-  // static addUserProfileMethod(req, res) {
-
-  // }
-
+  //* BUYER SERVICES
   static showBuyerPage(req, res) {
     let usernameLoggedIn = req.session.username
     let usernameParams = req.params.username
@@ -159,6 +158,7 @@ class Controller {
       })
   }
 
+  //*PROFILE USERS
   static showProfile(req, res) {
     let usernameLoggedIn = req.session.username
     User.findOne({
@@ -176,6 +176,39 @@ class Controller {
       })
 
   }
+
+
+
+  static showUserProfileAddForm(req, res) {
+    let usernameLoggedIn = req.session.username
+    // res.send(usernameLoggedIn, `masuk ke add form user profile`)
+    res.render('user-profile-add', { usernameLoggedIn })
+  }
+
+  static addUserProfileMethod(req, res) {
+
+    User.findOne({
+      where: {
+        username: req.params.username
+      }
+    }).then(dataUserFound => {
+      let bodyProfileToAdd = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        imageUrl: req.body.imageUrl,
+        UserId: dataUserFound.id
+      }
+      // res.send(bodyProfileToAdd)
+      Profile.create(bodyProfileToAdd)
+        .then(_ => {
+          res.redirect(`/profile/${req.params.username}`)
+        }).catch(err => {
+          res.send(err)
+        })
+    })
+  }
+
+
 
   static showUserProfileEditForm(req, res) {
     let usernameLoggedIn = req.session.username
@@ -201,23 +234,27 @@ class Controller {
       lastName: req.body.lastName,
       imageUrl: req.body.imageUrl,
     }
+    console.log(bodyProfileUpdate, `<<<<< ini body profile update`)
     User.findOne({
       where: {
         username: req.params.username
       }
-    }).then(data => {
+    }).then(dataUser => {
       Profile.update(bodyProfileUpdate, {
         where: {
-          id: data.id
+          UserId: dataUser.id
         }
       })
-    }).then(
+    }).then(_ => {
+      console.log(`masssiiuuuuuuuk`)
       res.redirect(`/profile/${req.params.username}`)
+    }
     ).catch(err => {
       res.send(err)
     })
   }
 
+  //* SELLER SERVICES
   static showSellerPage(req, res) {
     let usernameLoggedIn = req.session.username
     let usernameParams = req.params.username
