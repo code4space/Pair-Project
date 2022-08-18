@@ -10,8 +10,6 @@
     <%- include('./partials/navbar.ejs') %> 
     <h1>Add Service</h1>
     <form action="" method="post">
-        <% data.forEach(el => { %>
-
         <label for="">Service Name: </label> <br>
         <input type="text" name="nameService"><br><br>
 
@@ -30,8 +28,6 @@
         </select><br><br><br>
 
         <button type="submit">Add Service</button>
-        
-        <% }) %> 
     </form>
 </body>
 </html>

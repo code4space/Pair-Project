@@ -39,7 +39,7 @@
           <td><%= item.price %> </td>
           <td><%= item.UserId%></td>
           <td>
-            <a href=""><button>Edit</button></a>
+            <a href="/services/seller/<%= usernameLoggedIn %>/edit/<%= item.id %>"><button>Edit</button></a>
             <a href="/services/seller/<%= usernameLoggedIn %>/delete/<%= item.id %>"><button>Delete</button></a>            
           </td>
         </tr>
