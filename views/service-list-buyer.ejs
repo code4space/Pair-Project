@@ -18,12 +18,31 @@
     <p>login username :  <%= usernameLoggedIn %> </p>
 
 
+    <a href="/services/buyer/<%= usernameLoggedIn %>/?sortBy=price"><button>Sort By Price</button></a>
+
+
+    <form action="/services/buyer/<%= usernameLoggedIn %>/" method="get">
+      <input type="text" name="search" placeholder="search">
+      <button type="submit">Search</button>
+    </form>
+
+    <form action="/services/buyer/<%= usernameLoggedIn %>/" method="get">
+      <select name="filter">
+        <option value="">No FILTER</option>
+        <option value="1">gaming</option>
+        <option value="2">editing</option>
+        <option value="3">cooking</option>
+      </select>
+      <button type="submit">Filter!</button>
+    </form>
+
     <table border="2">
 
       <thead>
         <th>Service Name</th>
         <th>Description</th>
         <th>Price</th>
+        <th>Category</th>
       </thead>
 
       <tbody>
@@ -31,7 +50,9 @@
         <tr>
           <td><%= item.nameService %> </td>
           <td><%= item.description %> </td>
-          <td><%= item.price %> </td>
+          <td><%= item.priceConvertedToRupiah %> </td>
+          <td><%= item.Category.nameCategory%></td>
+
         </tr>
 
         <% }) %> 
