@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {
+  font-family: "Quicksand", sans-serif;
+  background: #7f7fd5;
+  background: linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5);
+}
+    </style>
       <!-- Link Bootstrap -->
   <link
   href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
@@ -21,30 +28,44 @@
     integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
     crossorigin="anonymous"
   ></script>
+  <link href="./style.css" rel="stylesheet">
     <title>Login</title>
 </head>
 <body>
-    <% if (err) { %>
+  
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <% if (err) { %>
         <p style="color: red;"><%= err %>: Password Salah! </p>
-    <% } %> 
+      <% } %> 
+    </div>
 
-    <h1 style="color: rgb(63, 63, 63);">Jasa Joki Online Terbaik</h1>
+
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <h1 style="color: rgb(63, 63, 63);  font-size: 5em;">Jasa Joki Online Terbaik</h1>
+    </div>
     
-    <h1>Login</h1>
+    
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <h1>Login</h1>
+    </div>
 
-    <form action="/login" method="post">
-        <label for="">Username</label> <br>
-        <input type="text" name="username" id=""><br><br>
-        
-        <label for="">Password</label> <br>
-        <input type="text" name="password" id=""><br><br>
+    
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <form action="/login" method="post">
+          <label for="">Username</label> <br>
+          <input type="text" name="username" id=""><br><br>
+          
+          <label for="">Password</label> <br>
+          <input type="password" name="password" id=""><br><br><br><br>
 
-        <!-- <label for="">Sebagai: </label><br>
-        <input type="radio" name="role" value="seller"> <label for="">seller</label>
-        <input type="radio" name="role" value="buyer"> <label for="">buyer</label><br><br><br> -->
+          <button type="submit" style="width: 190px; box-shadow: 0 3px 2px rgba(0, 0, 0, 0.2);" class="btn btn-success">Sign in</button><br><br>
+      </form>
+    </div>
 
-        <button type="submit" style="width: 190px">Sign in</button><br><br>
-    </form>
-    <a href="/register" style="margin-left: 10px;"><button>didn't have Account yet ?</button></a>
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <a href="/register"><button class="btn btn-info" style="box-shadow: 0 3px 2px rgba(0, 0, 0, 0.2); color: white;">didn't have Account yet ?</button></a>
+    </div>
+
+
 </body>
 </html>

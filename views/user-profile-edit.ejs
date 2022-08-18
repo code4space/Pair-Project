@@ -28,9 +28,9 @@
     <img src="<%= dataOldProfile.Profile.imageUrl%>" alt="ini gambar User"  width="400" height="300">
     <p><%= dataOldProfile.Profile.firstName %> <%= dataOldProfile.Profile.lastName %></p> 
     <% if (dataOldProfile.role === "buyer") { %>
-        <a href="/services/buyer/<%= usernameLoggedIn %>"><button class="btn btn-secondary">Back</button></a>
+        <a href="/services/buyer/<%= usernameLoggedIn %>"><button class="btn btn-danger">Back</button></a>
     <% } else { %>
-        <a href="/services/seller/<%= usernameLoggedIn %>"><button class="btn btn-secondary">Back</button></a>
+        <a href="/services/seller/<%= usernameLoggedIn %>"><button class="btn btn-danger">Back</button></a>
     <% } %> 
 
     <br>
@@ -57,7 +57,7 @@
       </div>
       <br>
 
-        <input type="submit" value="Submit">
+        <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
     </form>
 </body>
 </html>
