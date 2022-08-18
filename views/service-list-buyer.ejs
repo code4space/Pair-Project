@@ -38,27 +38,27 @@
     <p>login username :  <%= usernameLoggedIn %> </p>
 
 
-    <a href="/services/buyer/<%= usernameLoggedIn %>/?sortBy=price"><button>Sort By Price</button></a>
+    <a href="/services/buyer/<%= usernameLoggedIn %>/?sortBy=price"><button class="btn btn-secondary">Sort By Price</button></a>
 
 
     <form action="/services/buyer/<%= usernameLoggedIn %>/" method="get">
       <input type="text" name="search" placeholder="search">
-      <button type="submit">Search</button>
+      <button type="submit" class="btn btn-secondary">Search</button>
     </form>
 
     <form action="/services/buyer/<%= usernameLoggedIn %>/" method="get">
       <select name="filter">
         <option value="">No FILTER</option>
-        <option value="1">gaming</option>
-        <option value="2">editing</option>
-        <option value="3">cooking</option>
+        <option value="1">Gaming</option>
+        <option value="2">Working</option>
+        <option value="3">Cooking</option>
       </select>
-      <button type="submit">Filter!</button>
+      <button type="submit" class="btn btn-secondary">Filter!</button>
     </form>
 
-    <table border="2">
+    <table border="2" class="table table-striped mt-3 table-hover">
 
-      <thead>
+      <thead class="table-info">
         <th>Service Name</th>
         <th>Description</th>
         <th>Price</th>

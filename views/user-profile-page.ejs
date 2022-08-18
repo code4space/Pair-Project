@@ -21,28 +21,21 @@
     integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
     crossorigin="anonymous"
   ></script>
-    <title>Register</title>
+    <title>Document</title>
 </head>
 <body>
-    <h1>Register</h1>
+    <!-- <%= JSON.stringify(data) %>  -->
+    <img src="<%= data.Profile.imageUrl%>" alt="ini gambar User"  width="400" height="300">
+    <p><%= data.Profile.firstName %> <%= data.Profile.lastName %></p> 
+    <% if (data.role === "buyer") { %>
+        <a href="/services/buyer/<%= usernameLoggedIn %>"><button class="btn btn-secondary">Back</button></a>
+    <% } else { %>
+        <a href="/services/seller/<%= usernameLoggedIn %>"><button class="btn btn-secondary">Back</button></a>
+    <% } %> 
 
-    <form action="" method="post">
-        <label for="">Username</label> <br>
-        <input type="text" name="username" id=""><br><br>
-        
-        <label for="">Password</label> <br>
-        <input type="text" name="password" id=""><br><br>
-
-        <label for="">Sebagai: </label><br>
-        <input type="radio" name="role" value="seller"> <label for="">seller</label>
-        <input type="radio" name="role" value="buyer"> <label for="">buyer</label><br><br>
-        
-        <label for="">Email</label> <br>
-        <input type="email" name="email" id=""><br><br>
-
-        <button type="submit">Sign Up</button> 
-    </form><br><br><br>
-    <label for="">Already Have Account?</label><br>
-    <a href="/login"><button>Log in</button></a>
+    <br>
+    <br>
+    <br>
+    <a href="/profile/<%= usernameLoggedIn %>/edit"><button>Edit Profile</button></a>
 </body>
 </html>
