@@ -37,6 +37,7 @@ routes.use(function (req, res, next) {
 
 // endpoint buyer
 routes.get('/services/buyer/:username', Controller.showBuyerPage)
+routes.get('/services/buyer/:username/profile', Controller.showBuyerProfile)
 
 //TODO : IMPLEMENT BUY UTK BUYER.
 //! TAPI PRIORITASIN UTK EDIT ADD DELETE KHUSUS SELLER

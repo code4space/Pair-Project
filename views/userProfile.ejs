@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%= JSON.stringify(data) %> 
+    <img src="<%= data.Profile.imageUrl%>" alt="ini gambar User"  width="400" height="300">
+    <p><%= data.Profile.firstName %> <%= data.Profile.lastName %></p> 
+    <% if (data.role === "buyer") { %>
+        <a href="/services/buyer/<%= usernameLoggedIn %>"><button>Back</button></a>
+    <% } else { %>
+        <a href="/services/seller/<%= usernameLoggedIn %>"><button>Back</button></a>
+    <% } %> 
+</body>
+</html>

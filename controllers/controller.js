@@ -40,13 +40,10 @@ class Controller {
           if (isvalidPassword) {
             req.session.username = user.username
             req.session.role = user.role
-            console.log(user.role === "seller")
             if (user.role === "buyer") {
-              console.log('masuk buyer')
               return res.redirect(`/services/buyer/${req.session.username}`)
             }
             if (user.role === "seller") {
-              console.log('masuk seller')
               return res.redirect(`/services/seller/${req.session.username}`)
             }
             // return res.redirect('/services')
@@ -116,7 +113,7 @@ class Controller {
     let querySortBy = req.query.sortBy; // get the query sort
     let queryFilter = +req.query.filter; // get the query filter
     let querySearch = req.query.search; // get the query search
-    // console.log(queryFilter)
+    
     if (querySortBy) {
       additionalQuery = {
         order: [[querySortBy, 'DESC']],
@@ -148,8 +145,8 @@ class Controller {
           model: Category
         }
       };
-      // console.log(additionalQuery, `<<< additionalQuery`)
     }
+
     // if blank / or nothing
     // return all data, just like findAll
     // adding some additional query
@@ -161,21 +158,33 @@ class Controller {
       }
     }
 
-    // console.log(additionalQuery, `harusnya masuk`)
     Service.findAll(
       additionalQuery
     )
       .then(dataAllService => {
-        // res.send(dataAllService)
-        // if (!dataAllService.Category.nameCategory) {
-        //   dataAllService.Category.nameCategory = "No Category"
-        // }
         res.render('service-list-buyer', { dataAllService, usernameLoggedIn, usernameParams })
       }).catch(err => {
         res.send(err)
       })
   }
 
+  static showBuyerProfile (req, res) {
+    let usernameLoggedIn = req.session.username
+    User.findOne({
+      where: {
+        username: req.params.username
+      }, include: {
+        model: Profile
+      }
+    })
+      .then(data => {
+        res.render('userProfile', {data, usernameLoggedIn})
+      })
+      .catch(err => {
+        res.send(err)
+      })
+
+  }
 
   static showSellerPage(req, res) {
     let usernameLoggedIn = req.session.username
@@ -218,8 +227,6 @@ class Controller {
       }
     })
       .then(userFound => {
-        // console.log(req.body)
-        // console.log(userFound.id + " <<< userId loh!")
         let body = {
           nameService: req.body.nameService,
           description: req.body.description,
@@ -240,7 +247,6 @@ class Controller {
   static showServicesSellerEditForm(req, res) {
     Service.findByPk(req.params.idService)
       .then((dataToEdit) => {
-        console.log(dataToEdit, `<<< ini datanya`)
         // res.send(data)
         res.render('service-edit-seller', { dataToEdit })
       }).catch(err => {
