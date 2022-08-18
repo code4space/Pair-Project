@@ -68,7 +68,7 @@ class Controller {
     let { username, password, role, email } = req.body
     User.create({ username, password, role, email })
       .then(() => {
-        res.redirect('/services')
+        res.redirect('/login')
       })
       .catch(err => {
         if (err.name === 'SequelizeValidationError' || err.name === 'SequelizeUniqueConstraintError') {
