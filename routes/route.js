@@ -66,7 +66,7 @@ routes.get('/services/seller/:username/add', Controller.showServicesSellerAddFor
 routes.post('/services/seller/:username/add', Controller.addServicesSellerMethod)
 routes.get('/services/seller/:username/edit', Controller.showServicesSellerEditForm)
 routes.post('/services/seller/:username/edit', Controller.editServicesSellerMethod)
-routes.get('/services/seller/:username/delete', Controller.deleteSellerServices)
+routes.get('/services/seller/:username/delete/:idService', Controller.deleteSellerServices)
 
 
 module.exports = routes

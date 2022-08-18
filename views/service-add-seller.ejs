@@ -7,6 +7,27 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>masuk</h1>
+    <%- include('./partials/navbar.ejs') %> 
+    <h1>Add Service</h1>
+    <form action="" method="post">
+        <label for="">Service Name: </label> <br>
+        <input type="text" name="nameService"><br><br>
+
+        <label for="">Description: </label> <br>
+        <textarea name="description" rows="10", cols="50"></textarea><br><br>
+
+        <label for="">Price :</label> <br>
+        <input type="number" name="price" id=""><br><br>
+
+        <label for="">Category :</label>
+        <select name="CategoryId" id="">
+            <option selected disabled>--choose--</option>
+            <option value="1">Gaming</option>
+            <option value="1">Editing</option>
+            <option value="1">Cooking</option>
+        </select><br><br><br>
+
+        <button type="submit">Add Service</button>
+    </form>
 </body>
 </html>
