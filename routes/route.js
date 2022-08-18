@@ -27,17 +27,13 @@ routes.use(function (req, res, next) {
   }
 })
 
-// // profile dulu
-// routes.get('/profile/:username', Controller.showUserProfile)
-// routes.get('/profile/:username/add', Controller.showUserProfileAddForm)
-// routes.post('/profile/:username/add', Controller.addUserProfileMethod)
-// routes.get('/profile/:username/edit', Controller.showUserProfileEditForm)
-// routes.post('/profile/:username/edit', Controller.editUserProfileMethod)
-// routes.get('/profile/:username/delete', Controller.showUserProfileEditForm)
+routes.get('/profile/:username', Controller.showProfile)
+routes.get('/profile/:username/edit', Controller.showUserProfileEditForm)
+routes.post('/profile/:username/edit', Controller.editUserProfileMethod)
+
 
 // endpoint buyer
 routes.get('/services/buyer/:username', Controller.showBuyerPage)
-routes.get('/services/buyer/:username/profile', Controller.showBuyerProfile)
 
 //TODO : IMPLEMENT BUY UTK BUYER.
 //! TAPI PRIORITASIN UTK EDIT ADD DELETE KHUSUS SELLER
@@ -49,7 +45,7 @@ routes.get('/services/seller/:username', Controller.showSellerPage)
 routes.use(function (req, res, next) {
   if (req.session.username && req.session.role === 'seller') {
     next()
-  } 
+  }
   else if (req.session.username && req.session.role === 'buyer') {
     next()
   }

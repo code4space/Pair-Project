@@ -10,15 +10,6 @@ class Controller {
     res.render('landing-page', { username })
   }
 
-  static showAllService(req, res) {
-    // let usernameLoggedIn = req.session.username
-    // Service.findAll()
-    //   .then(dataAllService => {
-    //     res.render('service-list', { dataAllService, usernameLoggedIn })
-    //   }).catch(err => {
-    //     res.send(err)
-    //   })
-  }
 
   static showLogin(req, res) {
     req.session.username = null
@@ -113,7 +104,7 @@ class Controller {
     let querySortBy = req.query.sortBy; // get the query sort
     let queryFilter = +req.query.filter; // get the query filter
     let querySearch = req.query.search; // get the query search
-    
+
     if (querySortBy) {
       additionalQuery = {
         order: [[querySortBy, 'DESC']],
@@ -168,7 +159,7 @@ class Controller {
       })
   }
 
-  static showBuyerProfile (req, res) {
+  static showProfile(req, res) {
     let usernameLoggedIn = req.session.username
     User.findOne({
       where: {
@@ -178,12 +169,53 @@ class Controller {
       }
     })
       .then(data => {
-        res.render('userProfile', {data, usernameLoggedIn})
+        res.render('user-profile-page', { data, usernameLoggedIn })
       })
       .catch(err => {
         res.send(err)
       })
 
+  }
+
+  static showUserProfileEditForm(req, res) {
+    let usernameLoggedIn = req.session.username
+    User.findOne({
+      where: {
+        username: req.params.username
+      }, include: {
+        model: Profile
+      }
+    })
+      .then(dataOldProfile => {
+        res.render('user-profile-edit', { dataOldProfile, usernameLoggedIn })
+      })
+      .catch(err => {
+        res.send(err)
+      })
+
+  }
+
+  static editUserProfileMethod(req, res) {
+    let bodyProfileUpdate = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      imageUrl: req.body.imageUrl,
+    }
+    User.findOne({
+      where: {
+        username: req.params.username
+      }
+    }).then(data => {
+      Profile.update(bodyProfileUpdate, {
+        where: {
+          id: data.id
+        }
+      })
+    }).then(
+      res.redirect(`/profile/${req.params.username}`)
+    ).catch(err => {
+      res.send(err)
+    })
   }
 
   static showSellerPage(req, res) {
