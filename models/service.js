@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const convertMoney = require('../helpers/currencyConverter')
 module.exports = (sequelize, DataTypes) => {
   class Service extends Model {
     /**
@@ -12,8 +13,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Service.belongsTo(models.User)
-      Service.hasMany(models.Category)
+      Service.belongsTo(models.Category)
     }
+
+
+
+    get priceConvertedToRupiah() {
+      return convertMoney(this.price)
+    }
+
   }
   Service.init({
     nameService: DataTypes.STRING,
