@@ -22,22 +22,22 @@
     <table border="2">
 
       <thead>
-        <th>service id</th>
         <th>Service Name</th>
         <th>Description</th>
         <th>Price</th>
         <th>User ID</th>
+        <th>Category</th>
         <th>Action</th>
       </thead>
 
       <tbody>
         <% dataAllService.forEach(item => { %> 
         <tr>
-          <td><%= item.id %></td>
           <td><%= item.nameService %> </td>
           <td><%= item.description %> </td>
-          <td><%= item.price %> </td>
+          <td><%= item.priceConvertedToRupiah %> </td>
           <td><%= item.UserId%></td>
+          <td><%= item.Category.nameCategory%></td>
           <td>
             <a href="/services/seller/<%= usernameLoggedIn %>/edit/<%= item.id %>"><button>Edit</button></a>
             <a href="/services/seller/<%= usernameLoggedIn %>/delete/<%= item.id %>"><button>Delete</button></a>            

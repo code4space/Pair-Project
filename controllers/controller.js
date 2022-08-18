@@ -1,5 +1,6 @@
 const { User, Profile, Category, Service } = require('../models')
 const bcrypt = require('bcrypt')
+const { Op } = require('sequelize')
 
 class Controller {
 
@@ -108,13 +109,73 @@ class Controller {
   static showBuyerPage(req, res) {
     let usernameLoggedIn = req.session.username
     let usernameParams = req.params.username
-    Service.findAll()
+
+    //* Fitur Filter dan Search, 
+
+    let additionalQuery // as empty obj by default 
+    let querySortBy = req.query.sortBy; // get the query sort
+    let queryFilter = +req.query.filter; // get the query filter
+    let querySearch = req.query.search; // get the query search
+    // console.log(queryFilter)
+    if (querySortBy) {
+      additionalQuery = {
+        order: [[querySortBy, 'DESC']],
+        include: {
+          model: Category
+        }
+      }
+    }
+
+    if (querySearch) {
+      additionalQuery = {
+        where: {
+          nameService: {
+            [Op.iLike]: `%${querySearch}%`
+          }
+        },
+        include: {
+          model: Category
+        }
+      };
+    }
+
+    if (queryFilter) {
+      additionalQuery = {
+        where: {
+          CategoryId: queryFilter
+        },
+        include: {
+          model: Category
+        }
+      };
+      // console.log(additionalQuery, `<<< additionalQuery`)
+    }
+    // if blank / or nothing
+    // return all data, just like findAll
+    // adding some additional query
+    if (!queryFilter && !querySortBy && !querySearch) {
+      additionalQuery = {
+        include: {
+          model: Category
+        }
+      }
+    }
+
+    // console.log(additionalQuery, `harusnya masuk`)
+    Service.findAll(
+      additionalQuery
+    )
       .then(dataAllService => {
+        // res.send(dataAllService)
+        // if (!dataAllService.Category.nameCategory) {
+        //   dataAllService.Category.nameCategory = "No Category"
+        // }
         res.render('service-list-buyer', { dataAllService, usernameLoggedIn, usernameParams })
       }).catch(err => {
         res.send(err)
       })
   }
+
 
   static showSellerPage(req, res) {
     let usernameLoggedIn = req.session.username
@@ -125,15 +186,21 @@ class Controller {
         username: req.params.username
       }
     })
-      .then(userId => {
+      .then(userFound => {
+        // res.send(userFound)
         Service.findAll({
-          where: {UserId: userId.id}
+          where: { UserId: userFound.id },
+          include: {
+            all: true,
+            nested: true
+          }
         })
-        .then(dataAllService => {
-          res.render('service-list-seller', { dataAllService, usernameLoggedIn, usernameParams })
-        }).catch(err => {
-          res.send(err)
-        })
+          .then(dataAllService => {
+            // res.send(dataAllService)
+            res.render('service-list-seller', { dataAllService, usernameLoggedIn, usernameParams })
+          }).catch(err => {
+            res.send(err)
+          })
       })
   }
 
@@ -150,36 +217,57 @@ class Controller {
         username: req.params.username
       }
     })
-      .then(userId => {
-        console.log(req.body)
-        console.log(userId.id + " <<< userId loh!")
+      .then(userFound => {
+        // console.log(req.body)
+        // console.log(userFound.id + " <<< userId loh!")
         let body = {
           nameService: req.body.nameService,
           description: req.body.description,
           price: +req.body.price,
-          UserId: +userId.id,
+          UserId: +userFound.id,
           CategoryId: +req.body.CategoryId
         }
         Service.create(body)
-        .then(() => {
-          res.redirect(`/services/seller/${req.params.username}`)
-        }).catch(err => {
-          res.send(err)
-        })
+          .then(() => {
+            res.redirect(`/services/seller/${req.params.username}`)
+          }).catch(err => {
+            res.send(err)
+          })
       })
-    
+
   }
 
   static showServicesSellerEditForm(req, res) {
     Service.findByPk(req.params.idService)
-    .then((data) => {
-      res.render('service-edit-seller', data)
-    })
+      .then((dataToEdit) => {
+        console.log(dataToEdit, `<<< ini datanya`)
+        // res.send(data)
+        res.render('service-edit-seller', { dataToEdit })
+      }).catch(err => {
+        res.send(err)
+      })
   }
 
   static editServicesSellerMethod(req, res) {
-
+    const idService = req.params.idService
+    let bodyToEdit = {
+      nameService: req.body.nameService,
+      description: req.body.description,
+      price: +req.body.price,
+      CategoryId: +req.body.CategoryId
+    }
+    Service.update(bodyToEdit, {
+      where: {
+        id: idService
+      }
+    })
+      .then(() => {
+        res.redirect(`/services/seller/${req.params.username}`)
+      }).catch(err => {
+        res.send(err)
+      })
   }
+
 
   static deleteSellerServices(req, res) {
     Service.destroy({

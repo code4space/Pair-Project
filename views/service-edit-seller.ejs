@@ -8,26 +8,28 @@
 </head>
 <body>
     <%- include('./partials/navbar.ejs') %> 
-    <h1>Add Service</h1>
+    <h1>Edit Service</h1>
     <form action="" method="post">
+
         <label for="">Service Name: </label> <br>
-        <input type="text" name="nameService"><br><br>
+        <input type="text" name="nameService" value="<%= dataToEdit.nameService %>"><br><br>
 
         <label for="">Description: </label> <br>
-        <textarea name="description" rows="10", cols="50"></textarea><br><br>
+        <textarea name="description" rows="10", cols="50"><%= dataToEdit.nameService %></textarea><br><br>
 
         <label for="">Price :</label> <br>
-        <input type="number" name="price" id=""><br><br>
+        <input type="number" name="price" id="" value="<%= dataToEdit.price %>"><br><br>
 
         <label for="">Category :</label>
         <select name="CategoryId" id="">
             <option selected disabled>--choose--</option>
-            <option value="1">Gaming</option>
-            <option value="1">Editing</option>
-            <option value="1">Cooking</option>
+            <option value="1" <%= dataToEdit.CategoryId == 1 ? `selected` : '' %> >Gaming</option>
+            <option value="2" <%= dataToEdit.CategoryId == 2 ? `selected` : '' %>>Editing</option>
+            <option value="3" <%= dataToEdit.CategoryId == 3 ? `selected` : '' %>>Cooking</option>
         </select><br><br><br>
 
-        <button type="submit">Add Service</button>
+        <button type="submit">Edit Service</button>
+        
     </form>
 </body>
 </html>
