@@ -160,6 +160,9 @@ class Controller {
 
   //*PROFILE USERS
   static showProfile(req, res) {
+    if (req.session.username !== req.params.username) {
+      res.send('Maaf, tidak bisa melihat profil user lain ')
+    }
     let usernameLoggedIn = req.session.username
     User.findOne({
       where: {
@@ -180,13 +183,18 @@ class Controller {
 
 
   static showUserProfileAddForm(req, res) {
+    if (req.session.username !== req.params.username) {
+      res.send('Maaf, tidak bisa manipulasi user lain ')
+    }
     let usernameLoggedIn = req.session.username
     // res.send(usernameLoggedIn, `masuk ke add form user profile`)
     res.render('user-profile-add', { usernameLoggedIn })
   }
 
   static addUserProfileMethod(req, res) {
-
+    if (req.session.username !== req.params.username) {
+      res.send('Maaf, tidak bisa manipulasi user lain ')
+    }
     User.findOne({
       where: {
         username: req.params.username
@@ -211,6 +219,9 @@ class Controller {
 
 
   static showUserProfileEditForm(req, res) {
+    if (req.session.username !== req.params.username) {
+      res.send('Maaf, tidak bisa mengedit user lain ')
+    }
     let usernameLoggedIn = req.session.username
     User.findOne({
       where: {
@@ -229,6 +240,9 @@ class Controller {
   }
 
   static editUserProfileMethod(req, res) {
+    if (req.session.username !== req.params.username) {
+      res.send('Maaf, tidak bisa mengedit user lain ')
+    }
     let bodyProfileUpdate = {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -256,6 +270,9 @@ class Controller {
 
   //* SELLER SERVICES
   static showSellerPage(req, res) {
+    if (req.session.username !== req.params.username) {
+      res.send('Maaf, tidak bisa melihat layanan user lain ')
+    }
     let usernameLoggedIn = req.session.username
     let usernameParams = req.params.username
 
@@ -284,11 +301,17 @@ class Controller {
 
 
   static showServicesSellerAddForm(req, res) {
+    if (req.session.username !== req.params.username) {
+      res.send('Maaf, tidak bisa menambah layanan user lain ')
+    }
     res.render('service-add-seller')
   }
 
   static addServicesSellerMethod(req, res) {
     // const {nameService, description, price, CategoryId} = req.body
+    if (req.session.username !== req.params.username) {
+      res.send('Maaf, tidak bisa menambah layanan user lain ')
+    }
 
     User.findOne({
       where: {
@@ -314,6 +337,9 @@ class Controller {
   }
 
   static showServicesSellerEditForm(req, res) {
+    if (req.session.username !== req.params.username) {
+      res.send('Maaf, tidak bisa mengedit layanan user lain ')
+    }
     Service.findByPk(req.params.idService)
       .then((dataToEdit) => {
         // res.send(data)
@@ -324,6 +350,9 @@ class Controller {
   }
 
   static editServicesSellerMethod(req, res) {
+    if (req.session.username !== req.params.username) {
+      res.send('Maaf, tidak bisa mengedit layanan user lain ')
+    }
     const idService = req.params.idService
     let bodyToEdit = {
       nameService: req.body.nameService,
@@ -345,6 +374,9 @@ class Controller {
 
 
   static deleteSellerServices(req, res) {
+    if (req.session.username !== req.params.username) {
+      res.send('Maaf, tidak bisa menghapus layanan user lain ')
+    }
     Service.destroy({
       where: {
         id: req.params.idService
