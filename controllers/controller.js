@@ -119,23 +119,56 @@ class Controller {
   static showSellerPage(req, res) {
     let usernameLoggedIn = req.session.username
     let usernameParams = req.params.username
-    Service.findAll()
-      .then(dataAllService => {
-        res.render('service-list-seller', { dataAllService, usernameLoggedIn, usernameParams })
-      }).catch(err => {
-        res.send(err)
+
+    User.findOne({
+      where: {
+        username: req.params.username
+      }
+    })
+      .then(userId => {
+        Service.findAll({
+          where: {UserId: userId.id}
+        })
+        .then(dataAllService => {
+          console.log(userId + '<<< ini userId')
+          res.render('service-list-seller', { dataAllService, usernameLoggedIn, usernameParams })
+        }).catch(err => {
+          res.send(err)
+        })
       })
   }
 
 
-
   static showServicesSellerAddForm(req, res) {
-    res.send('masuk')
-    // res.render('service-add-seller')
+    res.render('service-add-seller')
   }
 
   static addServicesSellerMethod(req, res) {
-    res.send('masuk')
+    // const {nameService, description, price, CategoryId} = req.body
+
+    User.findOne({
+      where: {
+        username: req.params.username
+      }
+    })
+      .then(userId => {
+        console.log(req.body)
+        console.log(userId.id + " <<< userId loh!")
+        let body = {
+          nameService: req.body.nameService,
+          description: req.body.description,
+          price: +req.body.price,
+          UserId: +userId.id,
+          CategoryId: +req.body.CategoryId
+        }
+        Service.create(body)
+        .then(() => {
+          res.redirect(`/services/seller/:${req.params.username}`)
+        }).catch(err => {
+          res.send(err)
+        })
+      })
+    
   }
 
   static showServicesSellerEditForm(req, res) {
@@ -147,7 +180,15 @@ class Controller {
   }
 
   static deleteSellerServices(req, res) {
-    res.send('masuk')
+    Service.destroy({
+      where: {
+        id: req.params.idService
+      }
+    })
+      .then(() => {
+        res.redirect('/services/seller/nicoline1')
+      })
+      .catch(err => res.send(err))
   }
 
 }
