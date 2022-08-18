@@ -21,7 +21,7 @@
     integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
     crossorigin="anonymous"
   ></script>
-    <title>Document</title>
+    <title>Edit Seller</title>
 </head>
 <body>
   <br>
@@ -43,7 +43,7 @@
             <option selected disabled>--choose--</option>
             <option value="1" <%= dataToEdit.CategoryId == 1 ? `selected` : '' %> >Gaming</option>
             <option value="2" <%= dataToEdit.CategoryId == 2 ? `selected` : '' %>>Working</option>
-            <option value="3" <%= dataToEdit.CategoryId == 3 ? `selected` : '' %>>Cooking</option>
+            <option value="3" <%= dataToEdit.CategoryId == 3 ? `selected` : '' %>>Housing</option>
         </select><br><br><br>
 
         <button type="submit" class="btn btn-warning">Edit Service</button>

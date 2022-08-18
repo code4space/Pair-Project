@@ -28,6 +28,8 @@ routes.use(function (req, res, next) {
 })
 
 routes.get('/profile/:username', Controller.showProfile)
+routes.get('/profile/:username/add', Controller.showUserProfileAddForm)
+routes.post('/profile/:username/add', Controller.addUserProfileMethod)
 routes.get('/profile/:username/edit', Controller.showUserProfileEditForm)
 routes.post('/profile/:username/edit', Controller.editUserProfileMethod)
 
