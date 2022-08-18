@@ -130,7 +130,6 @@ class Controller {
           where: {UserId: userId.id}
         })
         .then(dataAllService => {
-          console.log(userId + '<<< ini userId')
           res.render('service-list-seller', { dataAllService, usernameLoggedIn, usernameParams })
         }).catch(err => {
           res.send(err)
@@ -163,7 +162,7 @@ class Controller {
         }
         Service.create(body)
         .then(() => {
-          res.redirect(`/services/seller/:${req.params.username}`)
+          res.redirect(`/services/seller/${req.params.username}`)
         }).catch(err => {
           res.send(err)
         })
@@ -186,7 +185,7 @@ class Controller {
       }
     })
       .then(() => {
-        res.redirect('/services/seller/nicoline1')
+        res.redirect(`/services/seller/${req.params.username}`)
       })
       .catch(err => res.send(err))
   }
