@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Profile.belongsTo(models.User)
     }
+
+    //helper di getter/static method , dahlah
+    get formattingDate() {
+      const optionsDate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', };
+      return this.createdAt.toLocaleDateString('id-ID', optionsDate);
+    }
   }
   Profile.init({
     firstName: DataTypes.STRING,

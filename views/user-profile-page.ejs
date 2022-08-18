@@ -22,18 +22,31 @@
     crossorigin="anonymous"
   ></script>
   
-    <title>Document</title>
+    <title>Profile User Page</title>
 </head>
 <body>
     <!-- <%= JSON.stringify(data) %>  -->
-    <img src="<%= data.Profile.imageUrl%>" alt="ini gambar User"  width="400" height="300"> <br><br><br><br>
-    <p><%= data.Profile.firstName %> <%= data.Profile.lastName %></p> 
-    <% if (data.role === "buyer") { %>
-        <a href="/services/buyer/<%= usernameLoggedIn %>"><button class="btn btn-danger">Back</button></a>
-    <% } else { %>
-        <a href="/services/seller/<%= usernameLoggedIn %>"><button class="btn btn-danger">Back</button></a>
-    <% } %> 
+    <% if (data.Profile) {%>
+      <img src="<%= data.Profile.imageUrl%>" alt="ini gambar User"  width="400" height="300"> <br><br><br><br>
+      <p><%= data.Profile.firstName %> <%= data.Profile.lastName %></p> 
+      <p>This person profile was created at : <%= data.Profile.formattingDate %> </p>
+      <% if (data.role === "buyer") { %>
+          <a href="/services/buyer/<%= usernameLoggedIn %>"><button class="btn btn-danger">Back</button></a>
+      <% } else { %>
+          <a href="/services/seller/<%= usernameLoggedIn %>"><button class="btn btn-danger">Back</button></a>
+      <% } %> 
+  
+      <a href="/profile/<%= usernameLoggedIn %>/edit"><button class="btn btn-primary">Edit Profile</button></a>
+      <% } else { %> 
+        <h1>Seems Like you dont have a Profile Details , yet</h1>
+        <a href="/profile/<%= usernameLoggedIn %>/add"><button class="btn btn-primary">Let's make your Profile !</button></a>
 
-    <a href="/profile/<%= usernameLoggedIn %>/edit"><button class="btn btn-primary">Edit Profile</button></a>
+        <% if (data.role === "buyer") { %>
+          <a href="/services/buyer/<%= usernameLoggedIn %>"><button class="btn btn-danger">Back</button></a>
+      <% } else { %>
+          <a href="/services/seller/<%= usernameLoggedIn %>"><button class="btn btn-danger">Back</button></a>
+      <% } %> 
+      <% }%>
+
 </body>
 </html>
