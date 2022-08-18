@@ -171,7 +171,10 @@ class Controller {
   }
 
   static showServicesSellerEditForm(req, res) {
-
+    Service.findByPk(req.params.idService)
+    .then((data) => {
+      res.render('service-edit-seller', data)
+    })
   }
 
   static editServicesSellerMethod(req, res) {

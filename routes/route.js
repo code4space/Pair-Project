@@ -64,8 +64,8 @@ routes.use(function (req, res, next) {
 
 routes.get('/services/seller/:username/add', Controller.showServicesSellerAddForm)
 routes.post('/services/seller/:username/add', Controller.addServicesSellerMethod)
-routes.get('/services/seller/:username/edit', Controller.showServicesSellerEditForm)
-routes.post('/services/seller/:username/edit', Controller.editServicesSellerMethod)
+routes.get('/services/seller/:username/edit/:idService', Controller.showServicesSellerEditForm)
+routes.post('/services/seller/:username/edit/:idService', Controller.editServicesSellerMethod)
 routes.get('/services/seller/:username/delete/:idService', Controller.deleteSellerServices)
 
 
