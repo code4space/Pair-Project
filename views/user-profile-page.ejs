@@ -21,21 +21,19 @@
     integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
     crossorigin="anonymous"
   ></script>
+  
     <title>Document</title>
 </head>
 <body>
     <!-- <%= JSON.stringify(data) %>  -->
-    <img src="<%= data.Profile.imageUrl%>" alt="ini gambar User"  width="400" height="300">
+    <img src="<%= data.Profile.imageUrl%>" alt="ini gambar User"  width="400" height="300"> <br><br><br><br>
     <p><%= data.Profile.firstName %> <%= data.Profile.lastName %></p> 
     <% if (data.role === "buyer") { %>
-        <a href="/services/buyer/<%= usernameLoggedIn %>"><button class="btn btn-secondary">Back</button></a>
+        <a href="/services/buyer/<%= usernameLoggedIn %>"><button class="btn btn-danger">Back</button></a>
     <% } else { %>
-        <a href="/services/seller/<%= usernameLoggedIn %>"><button class="btn btn-secondary">Back</button></a>
+        <a href="/services/seller/<%= usernameLoggedIn %>"><button class="btn btn-danger">Back</button></a>
     <% } %> 
 
-    <br>
-    <br>
-    <br>
-    <a href="/profile/<%= usernameLoggedIn %>/edit"><button>Edit Profile</button></a>
+    <a href="/profile/<%= usernameLoggedIn %>/edit"><button class="btn btn-primary">Edit Profile</button></a>
 </body>
 </html>

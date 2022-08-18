@@ -38,12 +38,11 @@
     <p>login username :  <%= usernameLoggedIn %> </p>
 
 
-    <a href="/services/buyer/<%= usernameLoggedIn %>/?sortBy=price"><button class="btn btn-secondary">Sort By Price</button></a>
 
 
     <form action="/services/buyer/<%= usernameLoggedIn %>/" method="get">
       <input type="text" name="search" placeholder="search">
-      <button type="submit" class="btn btn-secondary">Search</button>
+      <button type="submit" class="btn btn-light">Search</button>
     </form>
 
     <form action="/services/buyer/<%= usernameLoggedIn %>/" method="get">
@@ -53,8 +52,10 @@
         <option value="2">Working</option>
         <option value="3">Cooking</option>
       </select>
-      <button type="submit" class="btn btn-secondary">Filter!</button>
+      <button type="submit" class="btn btn-success">Filter</button>
     </form>
+
+    <a href="/services/buyer/<%= usernameLoggedIn %>/?sortBy=price"><button class="btn btn-primary" style="position: absolute-right;">Sort By Price</button></a>
 
     <table border="2" class="table table-striped mt-3 table-hover">
 
