@@ -37,10 +37,6 @@ routes.post('/profile/:username/edit', Controller.editUserProfileMethod)
 // endpoint buyer
 routes.get('/services/buyer/:username', Controller.showBuyerPage)
 
-//TODO : IMPLEMENT BUY UTK BUYER.
-//! TAPI PRIORITASIN UTK EDIT ADD DELETE KHUSUS SELLER
-
-routes.get('/services/seller/:username', Controller.showSellerPage)
 
 // req session utk privilege seller :
 
@@ -48,18 +44,13 @@ routes.use(function (req, res, next) {
   if (req.session.username && req.session.role === 'seller') {
     next()
   }
-  else if (req.session.username && req.session.role === 'buyer') {
-    next()
+  else {
+    res.render('seller-restrict')
   }
 })
 
-// routes.get('/services', Controller.showAllService)
+routes.get('/services/seller/:username', Controller.showSellerPage)
 
-
-// routes.get('/services/:id/delete', Controller.deleteUserMethod)
-
-// TODO: PENTING !
-//!  PRIORITASIN UTK EDIT ADD DELETE KHUSUS SELLER
 
 routes.get('/services/seller/:username/add', Controller.showServicesSellerAddForm)
 routes.post('/services/seller/:username/add', Controller.addServicesSellerMethod)
